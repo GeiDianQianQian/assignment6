@@ -1,0 +1,58 @@
+1. In my opinion, we are p-hacking in the A/B test analysis.  For the
+previous part, we analysis the correlation between uid and all users
+which is not just instructor. For the last second p value, it is 0.052
+which is closed to 0.05 and the last p value is smaller than 0.05. The
+instructor will be significant just by luck.
+
+2. T test needs to get all comparisons between different pairs, so there
+are 21 （6+5+4+3+2+1 ＝ 21） tests. The possible of having all conclusion
+correct is (1-0.05)^21.
+
+3. For Anova test:
+F_onewayResult(statistic=1846.4910603770109, pvalue=1.1200638723227328e-257)
+p value for Anova is 1.1200638723227328e-257 which is smaller than 0.05,
+so we can then do post hoc analysis. For Post Hoc Tukey Test:
+
+For Post Hoc Test:
+Multiple Comparison of Means - Tukey HSD,FWER=0.05
+=============================================================
+    group1         group2     meandiff  lower   upper  reject
+-------------------------------------------------------------
+    merge1     partition_sort -0.0903  -0.0936  -0.087  True
+    merge1          qs1       -0.0779  -0.0812 -0.0746  True
+    merge1          qs2       -0.0201  -0.0235 -0.0168  True
+    merge1          qs3       -0.0202  -0.0235 -0.0169  True
+    merge1          qs4       -0.0224  -0.0257 -0.0191  True
+    merge1          qs5       -0.0223  -0.0256  -0.019  True
+partition_sort      qs1        0.0124   0.0091  0.0157  True
+partition_sort      qs2        0.0701   0.0668  0.0734  True
+partition_sort      qs3         0.07    0.0667  0.0734  True
+partition_sort      qs4        0.0679   0.0646  0.0712  True
+partition_sort      qs5        0.068    0.0647  0.0713  True
+     qs1            qs2        0.0577   0.0544  0.061   True
+     qs1            qs3        0.0577   0.0543  0.061   True
+     qs1            qs4        0.0555   0.0522  0.0588  True
+     qs1            qs5        0.0556   0.0523  0.0589  True
+     qs2            qs3       -0.0001  -0.0034  0.0032 False
+     qs2            qs4       -0.0022  -0.0055  0.0011 False
+     qs2            qs5       -0.0021  -0.0054  0.0012 False
+     qs3            qs4       -0.0021  -0.0054  0.0012 False
+     qs3            qs5        -0.002  -0.0053  0.0013 False
+     qs4            qs5        0.0001  -0.0032  0.0034 False
+-------------------------------------------------------------
+
+From the table, we know that these six pairs (qs2 & qs3), (qs2 & qs5),
+(qs2 & qs4), (qs3 & qs4), (qs3, qs5), (qs4, qs5) cannot distinguished.
+The other different sort pairs can get the ranking.
+
+In addiction, I calculate the mean of different types of sorting
+qs1.mean:  0.07811936855316162
+qs2.mean:  0.13586588382720946
+qs3.mean:  0.1357715606689453
+qs4.mean:  0.13365417957305908
+qs5.mean:  0.133740177154541
+merge1.mean:  0.15601275920867919
+partition_sort.mean:  0.06572487354278564
+
+According to the Post Hoc test table, partition_sort is the fast method.
+qs1 is the second fast method. Merge1 takes the longest time to sort.
