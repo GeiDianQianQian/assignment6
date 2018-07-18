@@ -1,5 +1,5 @@
 # assignment6
-The assignment is for analyzing A/B Testing and T-test.
+The assignment is for analyzing A/B Testing and Benchmarking Sorting.
 
 A/B Testing:
 - Give file searches.json
